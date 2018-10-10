@@ -58,7 +58,7 @@ def server_association_apriori(rules_df, df_orig, apps_server):
     server_rules['IP']=server_rules.index
     server_rules=server_rules[['IP', 'serverid']]
 
-#merge in the serverid
+#merge in the serverid, for testing purposes to see how it compares with status quo. In live scenario this will be blank b/c there is no transaction data. may want to remove this df_servers
     df_servers=df_orig.merge(server_rules, left_on='Src_IP', right_on='IP', how='left')
     df_servers=df_servers.rename(columns={'serverid': 'Src_Server'})
     df_servers=df_servers.merge(server_rules, left_on='Dst_IP', right_on='IP', how='left')
@@ -68,11 +68,11 @@ def server_association_apriori(rules_df, df_orig, apps_server):
     df_servers.loc[df_servers['Src_Server']==df_servers['Dst_Server'], 'duration_pred']=0
 
     return [df_servers, server_rules, df_servers['Duration'].sum(), df_servers['duration_pred'].sum(), df_servers['Duration'].mean(), df_servers['duration_pred'].mean()]
-    #the total time based on our new model
-    #dataframe with servers assigned
-    #each app with the assigned server that had a rule
-    #total latency time for the data
-    #total latency time predicted by model
-    #avg transaction time for the data
-    #avg transaction time for the model
+    #outputs are:
+    #1. df_servers = dataframe with servers assigned
+    #2. server_rules = each app with the assigned server that had a rule
+    #t3. otal latency time for the data
+    #4. total latency time predicted by model
+    #5. avg transaction time for the data
+    #6. avg transaction time for the model
     

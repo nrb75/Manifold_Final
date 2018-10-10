@@ -48,7 +48,7 @@ def assign_servers_output(df_train, df_test, percentile, confidence, apps_server
     formated_rules=format_rules_apriori(rules, df_train, apps_server)
        
     #now we make the server assignments based on the training rules applied to the test data
-    server_df, server_assignments, total_latency, total_latency_model, avg_latency, avg_latency_model = server_association_apriori(formated_rules, df_test, apps_server) #this function loaded fr
+    server_df, server_assignments, total_latency, total_latency_model, avg_latency, avg_latency_model = server_association_apriori(formated_rules, df_test, apps_server) #this function works with test data with actual requests, but on a live dataset where it is blank you would want to modify this to just output the server_assignments.
 
     #return(formated_rules)
     return(server_df, server_assignments, total_latency, total_latency_model, avg_latency, avg_latency_model)  
